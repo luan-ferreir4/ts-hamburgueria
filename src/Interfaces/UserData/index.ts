@@ -3,7 +3,7 @@ export interface IUserDataLogin {
     password: string;
 }
 export interface IUserDataRegister {
-    email: string;
     name: string;
+    email: string;
     password: string;
 }
