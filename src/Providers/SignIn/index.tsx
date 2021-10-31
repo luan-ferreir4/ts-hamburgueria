@@ -29,7 +29,7 @@ export const SignInProvider = ({ children }: IProvidersProps) => {
         
         localStorage.setItem("token", JSON.stringify(res.data.accessToken));
 
-        localStorage.setItem("username", JSON.stringify(res.data.user.name));
+        localStorage.setItem("userId", JSON.stringify(res.data.user.id));
       
         history.push("/home");
       })
