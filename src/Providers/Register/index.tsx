@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 
 import { IProvidersProps } from "../../Interfaces/ProvidersProps";
 import { IUserDataRegister } from "../../Interfaces/UserData";
