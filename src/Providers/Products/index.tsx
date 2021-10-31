@@ -1,12 +1,12 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { IBurger } from "../../Interfaces/Burger";
 import { IProvidersProps } from "../../Interfaces/ProvidersProps";
-import { UseSignIn } from "../SignIn";
 
 interface IProductsProviderData {
   productsList: IBurger[];
-    getProducts: (userToken: object)=> void;
+  getProducts: (userToken: object) => void;
+  findProduct: (itemID: number) => IBurger;
 }
 
 const ProductsContext = createContext<IProductsProviderData>(
@@ -14,8 +14,7 @@ const ProductsContext = createContext<IProductsProviderData>(
 );
 
 export const ProductsProviders = ({ children }: IProvidersProps) => {
-
-    const [productsList, setProductsList] = useState<IBurger[]>([]);
+  const [productsList, setProductsList] = useState<IBurger[]>([]);
 
   const getProducts = (userToken: object) => {
     axios
@@ -23,13 +22,18 @@ export const ProductsProviders = ({ children }: IProvidersProps) => {
         headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((res) => {
-        setProductsList(res.data)
+        setProductsList(res.data);
       })
       .catch((err) => console.log(err));
   };
 
+  const findProduct = (itemID: number) => {
+    const pdt = productsList.find((item) => item.id === itemID) as IBurger;
+    return pdt;
+  };
+
   return (
-    <ProductsContext.Provider value={{ getProducts, productsList }}>
+    <ProductsContext.Provider value={{ getProducts, findProduct,productsList }}>
       {children}
     </ProductsContext.Provider>
   );
