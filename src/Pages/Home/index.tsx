@@ -1,32 +1,23 @@
 import { useEffect, useState } from "react";
+import { Cart } from "../../Components/Cart";
+import { ProductsList } from "../../Components/ProductsList";
 import { UseProducts } from "../../Providers/Products";
 import { UseSignIn } from "../../Providers/SignIn";
+import { UseUser } from "../../Providers/User";
 
-export const HomePage = () => { 
-  const [token] = useState(() => {
-    const current = localStorage.getItem("token") || "";
-    return JSON.parse(current);
-  });
-
-  const [username] = useState(() => {
-    const current = localStorage.getItem("username") || "";
-    return JSON.parse(current);
-  });
-
+export const HomePage = () => {
+ 
 
   const { signOut } = UseSignIn();
-  const { getProducts, productsList } = UseProducts();
 
-  useEffect(() => {
-    getProducts(token);
-  });
+  
+  
+
 
   return (
     <div>
-      <h3>Olá {username}</h3>
-      <div>{
-          productsList.map( item => <p key={item.id}>{item.name}</p>)
-          }</div>
+     <ProductsList/>
+      <Cart/>
       <button onClick={signOut}>Sair</button>
     </div>
   );
